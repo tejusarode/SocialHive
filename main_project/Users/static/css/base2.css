@@ -1,0 +1,268 @@
+body {
+    margin: 0;
+    font-family: Arial, sans-serif;
+}
+
+.navbar {
+    display: flex;
+    justify-content: flex-end;
+    padding: 10px 20px;
+    background-color: #f8f8f8;
+    border-bottom: 1px solid #ddd;
+}
+
+.navbar-right {
+    display: flex;
+    align-items: center;
+}
+
+.search-form {
+    display: flex;
+    align-items: center;
+    margin-right: 20px;
+    position: relative;
+}
+
+.search-box {
+    padding: 8px;
+    border-radius: 4px;
+    border: 1px solid #ccc;
+    margin-right: 10px;
+    width: 200px;
+}
+
+.search-results {
+    position: absolute;
+    top: 100%;
+    left: 0;
+    background-color: white;
+    border: 1px solid #ddd;
+    max-height: 200px;
+    overflow-y: auto;
+    width: 100%;
+    display: none;
+    z-index: 1000;
+}
+
+.search-result-item {
+    padding: 10px;
+    display: flex;
+    align-items: center;
+    cursor: pointer;
+}
+
+.search-result-item img {
+    width: 40px;
+    height: 40px;
+    border-radius: 50%;
+    margin-right: 10px;
+}
+
+.search-result-item:hover {
+    background-color: #f0f0f0;
+}
+
+.notification {
+    font-size: 20px;
+    margin-right: 10px;
+}
+
+.profile {
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    text-align: center;
+}
+
+.profile a {
+    text-decoration: none;
+    color: black;
+}
+
+.profile a:hover {
+    text-decoration: underline;
+}
+
+.profile-pic-wrapper {
+    margin-bottom: 0px;
+    height: 60px;
+    width: 60px;
+    border-radius: 50%;
+    position: relative;
+    top:10px;
+    left:10px;
+}
+
+.profile-pic-wrapper img {
+    height: 100%;
+    width: 100%;
+    border-radius: 50%;
+}
+
+.profile-info {
+    display: flex;
+    flex-direction: column;
+}
+
+.username {
+    font-weight: bold;
+}
+
+.container {
+    display: flex;
+    height: calc(100vh - 60px); /* Adjust based on the height of your navbar */
+}
+
+.sidebar {
+    width: 120px;
+    position: fixed;
+    top: 0;
+    left: 0;
+    height: 100%;
+    background-color: #f4f4f4;
+    border-right: 1px solid #ddd;
+    padding: 20px;
+    box-sizing: border-box;
+}
+
+
+
+.sidebar-item img {
+    height: 40px;
+    width: 40px;
+    justify-content: center;
+    display: flex;
+}
+
+.sidebar-item a {
+    text-decoration: none;
+}
+
+.sidebar-item a:hover {
+    text-decoration: underline;
+}
+
+.sidebar-icon {
+    font-size: 24px;
+    margin-right: 10px;
+}
+.sidebar-icon img{
+    height:40px;
+    width: 40px;
+    position: relative;
+    left: 10px;
+    margin-bottom: 10px;
+}
+
+.sidebar-text {
+    position: relative;
+    left:10px;
+    margin-bottom: 40px;
+    color: black;
+}
+
+.sidebar-item.dropdown {
+    position: relative;
+}
+
+.dropdown-content {
+    display: none;
+    position: absolute;
+    top: 100%;
+    left: 0;
+    background-color: #fff;
+    border: 1px solid #ddd;
+    border-radius: 4px;
+    z-index: 1;
+    width:180px;
+}
+
+.dropdown-content a {
+    display: block;
+    padding: 10px;
+    text-decoration: none;
+    color: black;
+}
+
+.dropdown-content a:hover {
+    background-color: #f0f0f0;
+}
+
+.sidebar-item:hover .dropdown-content {
+    display: block;
+}
+
+.main-wrapper {
+    margin-left: 120px; /* Width of the sidebar */
+    flex: 1; /* Allows the main content to take up remaining space */
+    padding: 20px; /* Optional: Add padding around main content */
+}
+
+.main-content {
+    display: flex;
+    flex-direction: column;
+    width: 100%; /* Full width within the main wrapper */
+}
+
+.post {
+    display: flex;
+    flex-direction: column;
+    margin-bottom: 20px;
+}
+
+.post-header {
+    display: flex;
+    align-items: center;
+}
+
+.post-header img {
+    border-radius: 50%;
+    width: 100px;
+    height: 100px;
+}
+/* 
+.post-img {
+    width: 100%;
+    max-width: 500px;
+    margin-top: 10px;
+} */
+
+.post-actions {
+    display: flex;
+    margin-top: 10px;
+}
+
+.post-action-icon {
+    height: 40px;
+    width: 40px;
+    margin-right: 5px;
+}
+
+.post-caption {
+    margin-top: 10px;
+}
+
+.comments {
+    margin-top: 10px;
+}
+
+.comment-box {
+    display: none;
+    margin-top: 10px;
+}
+
+.comment-input {
+    overflow: resize;
+    height: 20px;
+    width: 100%;
+    max-width: 500px;
+    border-radius: 14px;
+    border: 1px solid #808080;
+}
+
+.share-comment-icon {
+    position: relative;
+    top: 18px;
+    height: 44px;
+    width: 44px;
+}

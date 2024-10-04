@@ -1,0 +1,67 @@
+{% load static %}
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <link rel="stylesheet" href="{% static 'css/register.css' %}">
+    <link rel="preconnect" href="https://fonts.gstatic.com">
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/5.15.4/css/all.min.css">
+    <link href="https://fonts.googleapis.com/css2?family=Poppins:wght@300;500;600&display=swap" rel="stylesheet">
+    <title>Register</title>
+</head>
+<body>
+    {% if messages %}
+        <div class="messages">
+            {% for message in messages %}
+                <div class="alert alert-{{ message.tags }}">
+                    {{ message }}
+                </div>
+            {% endfor %}
+        </div>
+    {% endif %}
+    <!-- <img src="{{ MEDIA_URL }}DogGirl.png" alt="Girl with dog" class="GirlDog">
+    <img src="{{ MEDIA_URL }}Post.png"  alt="post pic" class="Post">
+    <img src="{{ MEDIA_URL }}MalePhotographer.png"  alt="Man clicking picture" class="MP">
+    <img src="{{ MEDIA_URL }}RainbowWoman.png"  alt="Rainbow woman" class="RW">
+    <img src="{{ MEDIA_URL }}Chat.png"  alt="chats icon" class="CI">
+    <img src="{{ MEDIA_URL }}SocialMediaMan.png"  alt="Social media man" class="SMM">
+    <img src="{{ MEDIA_URL }}MaleTourist.png" alt="Male Tourist" class="MT"> -->
+    <!-- <img src="{% static 'Users/media/DogGirl.png' %}" alt="Girl with dog" class="GirlDog">
+    <img src="{% static 'Users/media/Post.png' %}" alt="post pic" class="Post">
+    <img src="{% static 'Users/media/MalePhotographer.png' %}" alt="Man clicking picture" class="MP">
+    <img src="{% static 'Users/media/RainbowWoman.png' %}" alt="Rainbow woman" class="RW">
+    <img src="{% static 'Users/media/Chat.png' %}" alt="chats icon" class="CI">
+    <img src="{% static 'Users/media/SocialMediaMan.png' %}" alt="Social media man" class="SMM">
+    <img src="{% static 'Users/media/MaleTourist.png' %}" alt="Male Tourist" class="MT"> -->
+
+    <form method="post" enctype="multipart/form-data" novalidate >
+        {% csrf_token %}
+        <h1>Registeration Form</h1>
+        <div>{{form.first_name.label_tag}}</div>
+        <div>{{form.first_name}}</div>
+        <div>{{form.last_name.label_tag}}</div>
+        <div>{{form.last_name}}</div>
+        <div>{{form.email.label_tag}}</div>
+        <div>{{form.email}}</div>
+        <div>{{form.phone.label_tag}}</div>
+        <div>{{form.phone}}</div>
+        <div>{{form.username.label_tag}}</div>
+        <div>{{form.username}}</div>
+        <div>{{form.gender.label_tag}}</div>
+        <div>{{form.gender}}</div>
+        <div>{{form.dob.label_tag}}</div>
+        <div>{{form.dob}}</div>
+        <div>{{form.avatar.label_tag}}</div>
+        <div>{{form.avatar}}</div>
+        <div>{{ form.custom_avatar.label_tag }}</div>
+        <div>{{ form.custom_avatar }}</div>
+        <div>{{form.password.label_tag}}</div>
+        <div>{{form.password}}</div>
+        <div>{{form.password2.label_tag}}</div>
+        <div>{{form.password2}}</div><br>
+        <button><a href="{% url 'login' %}">Submit</a></button>
+    </form>
+   
+</body>
+</html>

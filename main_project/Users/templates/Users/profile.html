@@ -1,0 +1,109 @@
+{% load static %}
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <link rel="stylesheet" href="{% static 'css/profile.css' %}">
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/5.15.3/css/all.min.css">
+    <link href="https://cdn.jsdelivr.net/npm/remixicon@3.5.0/fonts/remixicon.css" rel="stylesheet">
+    <title>Profile - {{ user.username }}</title>
+</head>
+<body>
+<div class="container" style="width:100%;display: flex;">
+    <aside class="sidebar" style="width:120px;display: flex;flex-direction: column;border-right: 3px solid black;">
+        <div class="sidebar-item">
+            <img src="{% static 'css/logo.png' %}" alt="SocialHive">
+        </div>
+        <div class="sidebar-item">
+            <a href="{% url 'home' %}">
+                <div class="sidebar-icon">
+                    <img src="{% static 'css/home.png' %}" alt="home">
+                    <div class="sidebar-text">Home</div>
+                </div>
+            </a>
+        </div>
+        <div class="sidebar-item">
+            <a href="{% url 'create' %}">
+                <div class="sidebar-icon">
+                    <img src="{% static 'css/add_post.png' %}" alt="add_post">
+                    <div class="sidebar-text">Add Post</div>
+                </div>
+            </a>
+        </div>
+        <div class="sidebar-item dropdown">
+            <a href="{% url 'create' %}">
+                <div class="sidebar-icon">
+                    <img src="{% static 'css/setting.png' %}" alt="settings">
+                    <div class="sidebar-text">Settings</div>
+                </div>
+            </a>
+            <div class="dropdown-content">
+                <a href="{% url 'edit_profile' user.id %}">Edit Profile</a>
+                <a href="{% url 'password_reset' %}">Password Reset</a>
+            </div>
+        </div>
+        <div class="sidebar-item">
+            <a href="{% url 'logout' %}">
+                <div class="sidebar-icon">
+                    <img src="{% static 'css/logout.png' %}" alt="logout">
+                    <div class="sidebar-text">Logout</div>
+                </div>
+            </a>
+        </div>
+    </aside>
+    
+    <main class="profile-content"style="display:flex;flex-direction:column;">
+        <div class="profile-header">
+            <img src="{{ user.get_avatar }}" alt="{{ user.username }}'s avatar" class="profile-avatar">
+            <div class="profile-info">
+                <h1>{{ user.username }}</h1>
+                <p class="bio">{{ user.profile.bio }}</p>
+                <div class="profile-stats">
+                    <span><strong>{{ posts.count }}</strong> Posts</span>
+                    <span><strong>{{ user.followers_count }}</strong> Followers</span>
+                    <span><strong>{{ user.following_count }}</strong> Following</span>
+                </div>
+            </div>
+        </div>
+        <div class="follow-button" style="position:relative;left:200px;bottom:60px;">           
+            {% if user != request.user %}
+                {% if request.user in user.follower.all %}
+                    <form action="{% url 'follow' user.id %}" method="post">
+                        {% csrf_token %}
+                        <button type="submit" class="btn unfollow-btn" style="background-color:#c78b98;">Unfollow</button>
+                    </form>
+                {% else %}
+                    <form action="{% url 'follow' user.id %}" method="post">
+                        {% csrf_token %}
+                        <button type="submit" class="btn follow-btn" style="background-color:#c78b98;">Follow</button>
+                    </form>
+                {% endif %}
+            {% endif %}
+        </div>
+        <div class="posts-grid">
+            {% for post in posts %}
+            <div class="post"> 
+                <a href="{% if user.id == post.user.id %}{% url 'update_post' post.id %}{% else %}{% url 'view_post' post.id %}{% endif %}">
+                <img src="{{ post.image.url }}" alt="{{ post.caption }}" >
+                <div class="post-overlay">
+                    <div class="post-info">
+                        <i class="fas fa-heart"></i>
+                        <p>{{ post.liked_by.count }}</p>
+                    </div>
+                </div>
+            </a>    
+            </div>
+            {% endfor %}
+            
+        </div>
+    
+    </div>
+    
+        </div>
+    </main>
+</div>
+
+<script src="{% static 'js/profile.js' %}"></script>
+</body>
+</html>

@@ -1,0 +1,127 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width">
+    {% load static %}
+    <title>SocialHive-Home</title>
+    <link rel="stylesheet" href="{% static 'css/base2.css' %}">
+</head>
+<body>
+    <div class="navbar">
+        <div class="navbar-right">
+            <div class="notification">
+                <img src="{% static 'css/notification.png' %}" alt="notification" style="height:30px;width:30px;">
+            </div>
+            <form id="search-form" action="{% url 'search_user' %}" action="{% url 'search_user' %}" method="get" class="search-form" style="position:relative;">
+                <input type="text" name="search" class="search-box" placeholder="Search..." autocomplete="off">
+            </form>
+            <div class="profile">
+                <a href="{% url 'profile' user.id %}">
+                    <div class="profile-pic-wrapper">
+                        <img src="{{ user.get_avatar }}" alt="Profile Picture" class="profile-pic">
+                    </div>
+                    <div class="profile-info">
+                        <p>Hello, <span class="username">{{ user.username }}</span></p>
+                    </div>
+                </a>
+            </div>            
+        </div>
+    </div>
+    <div class="container" style="width:100%">
+    <div class="sidebar" >
+        <div class="sidebar-item">
+            <img src="{% static 'css/logo.png' %}" alt="SocialHive" style="height:100px;width:100px;margin-bottom:30px;position:abolute;left:10px;">        </div>
+        <div class="sidebar-item">
+            <a href="{% url 'home' %}">
+                <div class="sidebar-icon">
+                    <img src="{% static 'css/home.png' %}" alt="home" >
+                </div>
+                <div class="sidebar-text" >Home</div>
+            </a>
+        </div>
+        <div class="sidebar-item">
+            <a href="{% url 'create' %}">
+                <div class="sidebar-icon">
+                    <img src="{% static 'css/add_post.png' %}" alt="add_post" >
+                </div>
+                <div class="sidebar-text">Add Post</div>
+            </a>
+        </div>
+        <div class="sidebar-item dropdown">
+            <a href="{% url 'create' %}">
+                <div class="sidebar-icon">
+                    <img src="{% static 'css/setting.png' %}" alt="settings">
+                </div>
+                <div class="sidebar-text">Settings</div>
+            </a>
+            <div class="dropdown-content">
+                <a href="{% url 'edit_profile' user.id %}">Edit Profile</a>
+                <a href="{% url 'password_reset' %}">Password Reset</a>
+            </div>
+        </div>
+        
+        <div class="sidebar-item">
+            <a href="{% url 'logout' %}">
+                <div class="sidebar-icon">
+                    <img src="{% static 'css/logout.png' %}" alt="logout" >
+                </div>
+                
+                <div class="sidebar-text">Logout</div>
+            </a>
+        </div>
+    </div>
+    <div class="main-wrapper" style="display: flex; justify-content:flex-start;margin-left:120px;flex:1">
+        <div class="main-content" style="display: flex; flex-direction: column; width:75%; margin-left:10px;padding:10px;">
+            {% for post in posts %}
+            <div class="post" style="display: flex; flex-direction: column; margin-bottom: 20px;">
+                <div style="display: flex; align-items: center;">
+                    <img src="{{ user.get_avatar }}" alt="Profile Picture" style="border-radius: 50%; width: 100px; height: 100px;">
+                    <span><strong>{{ post.user.username }}</strong></span>
+                </div>
+                <img src="{{ post.image.url }}" alt="{{ post.user.username }}" class="post-img" style="width:130%" >
+                <div style="display: flex; margin-top: 10px;">
+                    {% if user in post.liked_by.all %}
+                        <a href="{% url 'like_post' post.id %}">
+                            <img src="{% static 'css/like.png' %}" alt="like img" style="height: 40px; width: 40px; margin-right: 5px;">
+                        </a>
+                    {% else %}
+                        <a href="{% url 'like_post' post.id %}">
+                            <img src="{% static 'css/unlike.png' %}" alt="like img" style="height: 40px; width: 40px; margin-right: 5px;">
+                        </a>
+                    {% endif %}
+                    <a href="javascript:void(0);" onclick="toggleCommentBox('{{ post.id }}')" >
+                        <img src="{% static 'css/comment.png' %}" alt="comment" style="height: 40px; width: 40px; margin-left: 10px;">
+                    </a>
+                </div>
+                <span>{{ post.liked_by.count }} likes</span>
+                <div class="post-caption" style="margin-top: 10px;">
+                    <p><strong>{{ post.user.username }}</strong>: {{ post.caption }}</p>
+                </div>
+                <div class="comments" style="margin-top: 10px;">
+                    {% for comment in post.comments.all %}
+                        <b>{{ comment.posted_by }}</b>: {{ comment.body }}<br>
+                    {% endfor %}
+                </div>
+                
+                <div id="comment-box-{{ post.id }}" class="comment-box" style="display: none; margin-top: 10px;">
+                    <form method="post" action="{% url 'comment' post.id %}">
+                        {% csrf_token %}
+                        <input type="text" name="body" placeholder="Add a comment..." style="overflow: resize; height: 20px; width: 500px; border-radius: 14px; border-color: #808080;">
+                        <img src="{% static 'css/share_comment.png' %}" alt="share-comment" style="position: relative; top: 18px; height: 44px; width: 44px;">
+                    </form>
+                </div>
+            </div>
+            {% endfor %}
+        </div>
+    </div>
+</div>
+    
+    
+    {% block content %}
+    {% endblock %}
+    <script src="{% static 'js/base2.js' %}">
+
+    </script>
+</body>
+</html>

@@ -1,0 +1,34 @@
+<!-- templates/Users/search_results.html -->
+{% extends 'Users/base3.html' %}
+<!-- {% load static %} 
+{% block extra_css %}
+    <link rel="stylesheet" href="{% static 'css/search_result.css' %}"> -->
+<!-- {% endblock %} -->
+
+{% block content %}
+    <div class="search-container" >
+        <h2 style="position:absolute;top:180px;left:680px;">Search Results</h2>    
+        {% if users %}
+        <ul class="user-list"style="position:absolute;top:220px;left:170px;list-style: none;border:2px solid black;width:1080px;">
+            {% for user in users %}
+                <li class="user-item">
+                    <a href="{% url 'profile' user.id %}">
+                    <div class="user-profile" style="display:flex;height:120px;padding:20px">
+                        <!-- {% if user.avatar %} -->
+                            <img src="{{ user.get_avatar}}" alt="{{ user.username }}" class="user-avatar" style="border-radius:50%;height:100px;width:100px;">
+                        <!-- {% else %} -->
+                            <!-- <img src="{% static 'default-avatar.png' %}" alt="{{ user.username }}" class="user-avatar"style="border-radius:50%height:100px;width:100px;"> -->
+                        <!-- {% endif %} -->
+                        <p class="user-username">{{ user.username }}</p><br>
+                        <p class="user-name">{{ user.first_name }} {{ user.last_name }}</p>
+                    </div>
+                </a>
+                </li>
+            {% endfor %}
+        </ul>
+    {% else %}
+        <p>No users found with the given search criteria.</p>
+    {% endif %}
+</div>
+{% endblock %}
+
